@@ -1,38 +1,41 @@
-# Nome da Action:
-name: Snake Game
+name: generate snake svg
 
-# Timer de atualização dos arquivos:
 on:
+  # Atualiza a cada 6 horas
   schedule:
-      # Atualização a cada 5 horas.
-    - cron: "0 */5 * * *"
-
+    - cron: "0 */6 * * *" 
+  
+  # Permite execução manual a qualquer momento
   workflow_dispatch:
+  
+  # Executa em todo push para a branch main
+  push:
+    branches:
+    - master
+
+
 
 jobs:
-  build:
+  generate:
+    permissions: 
+      contents: write
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
     steps:
-      - uses: actions/checkout@v2
-
-    # Repositorio que gera o Snake Game:
-      - uses: Platane/snk@master
-        id: snake-gif
+      # gera o Snake Game para usuário Jellmayer, retorna uma animação svg
+      - name: generate github-contribution-grid-snake.svg
+        uses: Platane/snk/svg-only@v3
         with:
-          github_user_name: Jellmayer
-          gif_out_path: dist/github-contribution-grid-snake.gif
-          svg_out_path: dist/github-contribution-grid-snake.svg
-
-      - run: git status
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
-          force: true
-
-      - uses: crazy-max/ghaction-github-pages@v2.1.3
+          github_user_name: ${{ Jellmayer }}
+          outputs: |
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+          
+          
+      # push the content of <build_dir> to a branch
+      # the content will be available at https://raw.githubusercontent.com/<github_user>/<repository>/<target_branch>/<file> , or as github page
+      - name: push github-contribution-grid-snake.svg to the output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
