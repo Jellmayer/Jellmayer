@@ -4,6 +4,8 @@
 - 📫 How to reach me thaismjellmayer@gmail.com or at LinkedIn (search for Thais Jellmayer Martins)
 - 📜 I coursed System Analysis and Development at IFSP Catanduva
 
-![Snake animation](https://github.com/Jellmayer/Jellmayer/blob/output/github-contribution-grid-snake.svg)
-
-[![readme](https://github-readme-stats.vercel.app/api/pin/?username=Jellmayer&repo=Jllmayer&theme=react)](https://github.com/Jellmayer/Jellmayer)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="github-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="github-snake.svg" />
+  <img alt="github-snake" src="github-snake.svg" />
+</picture>
